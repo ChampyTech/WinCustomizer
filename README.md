@@ -6,7 +6,7 @@ WinCustomizer è uno script Batch (.bat) per Windows 11 progettato per automatiz
 
 ### 2. Prerequisiti
 
-* Richiede i privilegi di amministratore. Integra un controllo nativo (`net session`) che blocca l'esecuzione e mostra le istruzioni di sblocco in caso di privilegi insufficienti.
+* Richiede i privilegi di amministratore.
 * Richiede il gestore pacchetti `winget` attivo per il modulo app e PowerShell 5.1 o superiore.
 
 ### 3. Struttura dei moduli
@@ -52,7 +52,3 @@ WinCustomizer è uno script Batch (.bat) per Windows 11 progettato per automatiz
 * Attiva l'accesso controllato alle cartelle contro i Ransomware e abilita l'isolamento del core per l'integrità della memoria.
 * Blocca l'esecuzione di script dannosi esterni disabilitando Windows Script Host e attiva la protezione anti-PUA.
 * Impedisce a Windows Update di sovrascrivere i driver hardware stabili e verifica lo stato della licenza OS.
-
-### 4. Linee guida per la sicurezza
-
-* Si raccomanda la creazione di un punto di ripristino prima dell'uso, date le modifiche al registro.
