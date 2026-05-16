@@ -1,7 +1,4 @@
-:: WinCustomizer è uno script batch avanzato progettato per automatizzare la manutenzione e la personalizzazione degli ambienti Windows.
-
 @echo off
-
 net session >nul 2>&1
 if %errorLevel% neq 0 (
     cls
@@ -16,21 +13,57 @@ if %errorLevel% neq 0 (
     echo ======================================================
     echo.
     pause
-    exit
+    exit /b
 )
+
+cls
+echo ======================================================
+echo                       ATTENZIONE!
+echo ======================================================
+echo Questo script effettua modifiche profonde al registro
+echo di sistema, alla privacy e ai servizi di Windows.
+echo Procedendo verrà creato un backup del registro.
+echo ======================================================
+echo.
+set /p proceed=Vuoi continuare? (S/N): 
+if /i "%proceed%" neq "S" exit /b
+
+echo.
+if exist "C:\Backup_Registro\HKLM_Backup.reg" if exist "C:\Backup_Registro\HKCU_Backup.reg" (
+    echo ======================================================
+    echo Backup già presente. Step saltato.
+    echo ======================================================
+    timeout /t 2 >nul
+    goto fine_backup
+)
+
+echo [1/2] Creazione cartella di backup in C:\Backup_Registro...
+if not exist "C:\Backup_Registro" mkdir "C:\Backup_Registro"
+
+echo [2/2] Esportazione del registro in corso...
+reg export HKLM "C:\Backup_Registro\HKLM_Backup.reg" /y >nul
+reg export HKCU "C:\Backup_Registro\HKCU_Backup.reg" /y >nul
+
+echo ======================================================
+echo Backup completato con successo!
+echo File salvati in: C:\Backup_Registro
+echo ======================================================
+timeout /t 3 >nul
+
+:fine_backup
 
 :menu
 cls
 echo ======================================================
-echo                    WinCustomizer
+echo                     WinCustomizer
 echo ======================================================
-echo [1] MANUTENZIONE SISTEMA (SFC, DISM, Pulizia Disco)
-echo [2] PRIVACY E TELEMETRIA (Disabilita tracking)
-echo [3] PERSONALIZZAZIONE UI (Menu Start, Taskbar, Context Menu)
-echo [4] OTTIMIZZAZIONE PERFORMANCE (Gaming, Power Plans)
-echo [5] GESTIONE APP (Rimuovi bloatware, installa essentials)
-echo [6] SICUREZZA (Windows Defender, aggiornamenti)
-echo [0] ESCI
+echo [1] Manutenzione sistema (SFC, DISM, pulizia disco)
+echo [2] Privacy e telemetria (disabilita tracking)
+echo [3] Personalizzazione ui (menu start, taskbar, context menu)
+echo [4] Ottimizzazione performance (gaming, power plans)
+echo [5] Gestione app (rimuovi bloatware, installa essentials)
+echo [6] Sicurezza (Windows Defender, aggiornamenti)
+echo [0] Esci
 echo ======================================================
 set /p choice=Scegli un'opzione (0-6): 
 
