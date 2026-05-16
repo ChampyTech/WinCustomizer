@@ -1,4 +1,4 @@
-:: WinCustomizer is an advanced Batch script designed to automate the maintenance and personalization of Windows environments.
+:: WinCustomizer è uno script batch avanzato progettato per automatizzare la manutenzione e la personalizzazione degli ambienti Windows.
 
 @echo off
 
