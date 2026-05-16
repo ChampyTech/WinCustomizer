@@ -1,54 +1,50 @@
-## WinCustomizer
+# WinCustomizer
 
-### 1. Descrizione generale
+WinCustomizer è uno script Batch avanzato progettato per automatizzare la manutenzione, ottimizzare le prestazioni, tutelare la privacy e personalizzare l'interfaccia utente su sistemi operativi Windows 11.
 
-WinCustomizer è uno script Batch (.bat) per Windows 11 progettato per automatizzare la manutenzione, ottimizzare le prestazioni, tutelare la privacy e personalizzare l'interfaccia utente. Combina comandi CMD nativi, modifiche al registro di sistema e cmdlet PowerShell.
+## Requisiti di sistema
 
-### 2. Prerequisiti
+* Windows 11 o Windows 10
+* Privilegi di Amministratore (obbligatori per modificare il registro e i servizi)
+* Connessione internet attiva (necessaria per il corretto funzionamento di `winget`)
 
-* Richiede i privilegi di amministratore.
-* Richiede il gestore pacchetti `winget` attivo per il modulo app e PowerShell 5.1 o superiore.
+## Funzionalità principali
 
-### 3. Struttura dei moduli
+### Manutenzione sistema
 
-#### Modulo 1: Manutenzione sistema
+Esegue la pulizia dei file temporanei, della cache e dei log di sistema. Ripara l'immagine del sistema operativo e i file corrotti utilizzando i tool nativi `sfc` e `DISM`.
 
-* Verifica e ripara i file e l'immagine di sistema tramite i tool diagnostici `sfc /scannow` e `DISM`.
-* Rimuove i file temporanei (`Temp`/`Prefetch`), svuota il Cestino, resetta le cache di Windows Update e del Microsoft Store, e cancella i log del Visualizzatore Eventi.
-* Svuota il DNS e resetta il catalogo Winsock per risolvere i problemi di rete.
-* Disabilita il file di ibernazione e applica la compressione di sistema LZX (`compactos`) per recuperare spazio.
+### Privacy e telemetria
 
-#### Modulo 2: Privacy e telemetria
+Disabilita i servizi di tracciamento in background, la geolocalizzazione, la raccolta dati di Windows, Microsoft Edge e della suite Office, bloccando inoltre l'accesso non necessario a microfono e fotocamera.
 
-* Blocca la raccolta dati e la telemetria di Windows, Microsoft Edge e della suite Office tramite il registro.
-* Disattiva Cortana e la ricerca web di Bing integrata nel menu Start.
-* Interrompe la geolocalizzazione, l'ID annunci, il tracciamento dell'avvio app e la cronologia attività.
-* Rimuove i permessi di accesso automatico in background a fotocamera e microfono per le app UWP.
+### Personalizzazione ui
 
-#### Modulo 3: Personalizzazione UI
+Permette di ripristinare il menu contestuale classico di Windows 10, gestire l'allineamento e la dimensione delle icone sulla taskbar, configurare Esplora File (mostrando estensioni e file nascosti) e attivare la modalità Dark Mode o il God Mode.
 
-* Permette di alternare tra il menu contestuale classico (stile Windows 10) e quello moderno (Windows 11).
-* Gestisce la Taskbar consentendo l'allineamento delle icone (sinistra/centro), la modalità piccola e la rimozione di widget, chat e ricerca.
-* Configura Esplora File per mostrare le estensioni dei file, gli elementi nascosti e impostare l'apertura su "Questo PC".
-* Gestisce Dark/Light Mode, disattiva animazioni, trasparenze e suoni, rimuove il testo "- Collegamento" e la filigrana hardware.
-* Crea la cartella "God Mode" sul desktop e disabilita la schermata di blocco. Ogni comando esegue il riavvio istantaneo di `explorer.exe`.
+### Ottimizzazione performance
 
-#### Modulo 4: Ottimizzazione performance
+Attiva il piano energetico nascosto Prestazioni Eccellenti, configura i parametri per il gaming (Game Mode, HAGS) e disabilita i servizi superflui come `SysMain` e l'indicizzazione dei file per ridurre il carico su RAM e disco.
 
-* Attiva il piano energetico "Prestazioni Eccellenti" e disabilita il *Power Throttling* della CPU.
-* Ottimizza i parametri per il gaming abilitando la *Game Mode*, disattivando il Game DVR e abilitando l'HAGS (GPU Scheduling).
-* Disabilita i servizi di indicizzazione (`WSearch`) e `SysMain` (Superfetch) per alleggerire disco e RAM.
-* Riduce il timeout di chiusura delle app bloccate in fase di spegnimento e aumenta la priorità di CPU e GPU nel registro.
+### Gestione app
 
-#### Modulo 5: Gestione app
+Rimuove i bloatware e le applicazioni sponsorizzate preinstallate da Microsoft tramite PowerShell, e installa in blocco i programmi essenziali (come Google Chrome, VLC, 7-Zip) sfruttando il gestore pacchetti `winget`.
 
-* Disinstalla via PowerShell i bloatware e i software sponsorizzati preinstallati, inclusa la rimozione forzata di OneDrive.
-* Utilizza `winget` per installare in modalità silenziosa i software essenziali (browser, player, utility e sviluppo) e aggiornare centralitamente tutti i programmi.
-* Ripristina il Microsoft Store in caso di errori, sblocca l'installazione di app da qualsiasi fonte e pulisce gli installer orfani nella cartella MSI.
+### Sicurezza
 
-#### Modulo 6: Sicurezza
+Gestisce le definizioni e le scansioni di Windows Defender, attiva le protezioni native contro i Ransomware e i PUA, e impedisce a Windows Update di sovrascrivere i driver hardware stabili.
 
-* Forza l'aggiornamento delle firme di Windows Defender e avvia una scansione rapida del sistema.
-* Attiva l'accesso controllato alle cartelle contro i Ransomware e abilita l'isolamento del core per l'integrità della memoria.
-* Blocca l'esecuzione di script dannosi esterni disabilitando Windows Script Host e attiva la protezione anti-PUA.
-* Impedisce a Windows Update di sovrascrivere i driver hardware stabili e verifica lo stato della licenza OS.
+## Sicurezza e backup del registro
+
+Prima di accedere al menu principale, lo script mostra un avviso e avvia una procedura di sicurezza automatica:
+
+* Lo script verifica se è già presente un salvataggio precedente nella cartella `C:\Backup_Registro`.
+* Se i file di backup esistono già, lo step viene saltato automaticamente per risparmiare tempo ed evitare sovrascritture non necessarie.
+* e non viene trovato alcun backup, lo script crea la cartella ed esporta le intere chiavi di registro `HKLM` e `HKCU` in formato `.reg` prima di effettuare qualsiasi modifica al sistema.
+
+## Come utilizzare lo script
+
+1. Scarica il file `WinCustomizer.bat`.
+2. Fai click con il tasto destro sul file.
+3. Seleziona **Esegui come amministratore**.
+4. Segui le istruzioni a schermo e scegli le opzioni dal menu inserendo il numero corrispondente.
