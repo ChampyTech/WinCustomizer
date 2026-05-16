@@ -51,23 +51,23 @@ echo ======================================================
 echo [1]  Esegui SFC (System File Checker)
 echo [2]  Esegui DISM (ScanHealth)
 echo [3]  Esegui DISM (RestoreHealth)
-echo [4]  Pulizia disco avanzata (Cleanmgr)
+echo [4]  Pulizia disco avanzata (cleanmgr)
 echo [5]  Svuota cache DNS
 echo [6]  Reimposta Winsock (Rete)
 echo [7]  Svuota cartelle temporanee (Temp)
 echo [8]  Pulisci cache Windows Update
 echo [9]  Ottimizza e deframmenta dischi
-echo [10] Controlla errori disco (Chkdsk - Solo read-only)
+echo [10] Controlla errori disco (chkdsk - solo read-only)
 echo [11] Forza svuotamento cestino
 echo [12] Pulisci cache icone ed esplora file
 echo [13] Rimuovi log visualizzatore eventi
-echo [14] Disabilita file di ibernazione (Libera spazio)
+echo [14] Disabilita file di ibernazione (libera spazio)
 echo [15] Compatta OS (Lzx compression)
 echo [16] Reset componenti Windows Update (via PowerShell)
 echo [17] Pulisci cache Microsoft Store
-echo [18] Disabilita indexing (Ricerca) su C:
+echo [18] Disabilita indexing (ricerca) su C:
 echo [19] Pulisci prefetch
-echo [20] Ottimizzazione registro (Pulisci file obsoleti)
+echo [20] Ottimizzazione registro (pulisci file obsoleti)
 echo [0]  Torna al menu principale
 echo ======================================================
 set /p subchoice=Seleziona un'operazione (0-20): 
@@ -102,19 +102,19 @@ cls
 echo ======================================================
 echo             Privacy e Telemetria - WinCustomizer
 echo ======================================================
-echo [1]  Disabilita telemetria di base (Esperienza utente)
+echo [1]  Disabilita telemetria di base (esperienza utente)
 echo [2]  Disabilita Cortana e ricerca web nel menu Start
-echo [3]  Disabilita ID annunci (Advertising ID)
-echo [4]  Disabilita feedback e diagnostica (Frequenza)
+echo [3]  Disabilita ID annunci (advertising ID)
+echo [4]  Disabilita feedback e diagnostica (frequenza)
 echo [5]  Disabilita tracciamento avvio app
-echo [6]  Disabilita sensore memoria (Storage Sense)
-echo [7]  Disabilita cronologia attività (Activity Feed)
+echo [6]  Disabilita sensore memoria (storage sense)
+echo [7]  Disabilita cronologia attività (activity feed)
 echo [8]  Disabilita servizi di geolocalizzazione
 echo [9]  Disabilita tracciamento dei file recenti
 echo [10] Disabilita telemetria di Microsoft Edge
 echo [11] Disabilita "Esperienze condivise" (Project Rome)
-echo [12] Disabilita telemetria di Office (Se installato)
-echo [13] Disabilita Wifi-Sense (Condivisione automatica)
+echo [12] Disabilita telemetria di Office (se installato)
+echo [13] Disabilita Wifi-Sense (condivisione automatica)
 echo [14] Disabilita segnalazione errori Windows (WER)
 echo [15] Rimuovi permessi fotocamera per app in background
 echo [16] Rimuovi permessi microfono per app in background
@@ -151,7 +151,7 @@ echo ======================================================
 echo [1]  Ripristina menu contestuale classico (Win10 style)
 echo [2]  Ripristina menu contestuale moderno (Win11 default)
 echo [3]  Allinea icone taskbar a sinistra
-echo [4]  Allinea icone taskbar al centro (Default)
+echo [4]  Allinea icone taskbar al centro (default)
 echo [5]  Disabilita widget della taskbar
 echo [6]  Abilita widget della taskbar
 echo [7]  Nascondi icona ricerca dalla taskbar
@@ -159,9 +159,9 @@ echo [8]  Mostra icona ricerca nella taskbar
 echo [9]  Disabilita chat (Microsoft Teams) dalla taskbar
 echo [10] Nascondi icone di sistema sul desktop (Cestino, PC, etc.)
 echo [11] Mostra icone di sistema sul desktop
-echo [12] Disabilita trasparenza (Effetti mica e acrilico)
+echo [12] Disabilita trasparenza di sistema
 echo [13] Abilita trasparenza di sistema
-echo [14] Rimpicciolisci icone della taskbar (Small mode)
+echo [14] Rimpicciolisci icone della taskbar (small mode)
 echo [15] Taskbar dimensioni standard
 echo [16] Disabilita suggerimenti nel menu Start
 echo [17] Disabilita animazioni di Windows
@@ -174,8 +174,8 @@ echo [23] Disabilita i suoni di sistema
 echo [24] Disabilita schermata di blocco (Lock screen)
 echo [25] Abilita il "God Mode" sul desktop
 echo [26] Rimuovi filigrana "Requisiti di sistema non soddisfatti"
-echo [27] Cambia tema in Dark Mode (Sistema e App)
-echo [28] Cambia tema in Light Mode (Sistema e App)
+echo [27] Cambia tema in Dark Mode (sistema e app)
+echo [28] Cambia tema in Light Mode (sistema e app)
 echo [29] Riavvia manualmente il processo Explorer
 echo [0]  Torna al menu principale
 echo ======================================================
@@ -221,24 +221,24 @@ echo ======================================================
 echo           Ottimizzazione performance - WinCustomizer
 echo ======================================================
 echo [1]  Attiva piano energetico "Prestazioni eccellenti"
-echo [2]  Disabilita limitazione energetica (Power throttling)
+echo [2]  Disabilita limitazione energetica (power throttling)
 echo [3]  Abilita modalità gioco (Game Mode)
 echo [4]  Disabilita Game DVR e barra dei giochi
 echo [5]  Ottimizza tempo di risposta applicazioni (WaitToKill)
 echo [6]  Disabilita indicizzazione ricerca (WSearch)
-echo [7]  Disabilita avvio rapido (Fast Startup)
+echo [7]  Disabilita avvio rapido (fast startup)
 echo [8]  Disabilita effetti visivi per massime prestazioni
 echo [9]  Ottimizza priorità CPU per i programmi
 echo [10] Disabilita limitazione larghezza di banda di rete
-echo [11] Disabilita servizi sysmain (Superfetch)
+echo [11] Disabilita servizi sysmain (superfetch)
 echo [12] Ottimizza cache del file system
 echo [13] Disabilita trasparenze della UI
 echo [14] Disabilita animazioni delle finestre
-echo [15] Aumenta priorità della GPU (Registry tweak)
-echo [16] Disabilita ibernazione (Libera RAM e spazio)
+echo [15] Aumenta priorità della GPU (registry tweak)
+echo [16] Disabilita ibernazione (libera RAM e spazio)
 echo [17] Disabilita avviso di spazio su disco insufficiente
 echo [18] Forza scaricamento delle DLL dalla RAM
-echo [19] Ottimizza tempo di avvio del BIOS (Post-boot)
+echo [19] Ottimizza tempo di avvio del BIOS (post-boot)
 echo [20] Disabilita Kernel Debugging per velocità
 echo [21] Abilita Hardware Accelerated GPU Scheduling (HAGS)
 echo [0]  Torna al menu principale
@@ -308,7 +308,7 @@ echo [29] Disabilita "Esperienza di benvenuto" di Windows
 echo [30] Forza disinstallazione Microsoft OneDrive
 echo [31] Abilita installazione app da qualsiasi fonte
 echo [32] Pulisci installer orfani nella cartella MSI
-echo [33] Reinstalla Microsoft Store (In caso di errori)
+echo [33] Reinstalla Microsoft Store (in caso di errori)
 echo [0]  Torna al menu principale
 echo ======================================================
 set /p appchoice=Seleziona un'operazione (0-33): 
@@ -356,15 +356,15 @@ echo                Sicurezza - WinCustomizer
 echo ======================================================
 echo [1]  Aggiorna firme di Windows Defender
 echo [2]  Esegui scansione rapida con Windows Defender
-echo [3]  Abilita protezione dai Ransomware (Controlled folder access)
+echo [3]  Abilita protezione dai Ransomware (controlled folder access)
 echo [4]  Disabilita protezione dai Ransomware
-echo [5]  Abilita isolamento del core (Memory integrity)
-echo [6]  Attiva protezione PUP/PUA (Applicazioni potenzialmente indesiderate)
-echo [7]  Disabilita Windows Script Host (Blocca script maligni VBS/JS)
-echo [8]  Abilita Windows Script Host (Default)
-echo [9]  Disabilita esecuzione automatica driver vulnerabili (Blocklist)
+echo [5]  Abilita isolamento del core (memory integrity)
+echo [6]  Attiva protezione PUP/PUA (applicazioni potenzialmente indesiderate)
+echo [7]  Disabilita Windows Script Host (blocca script maligni VBS/JS)
+echo [8]  Abilita Windows Script Host (default)
+echo [9]  Disabilita esecuzione automatica driver vulnerabili (blocklist)
 echo [10] Blocca aggiornamenti driver tramite Windows Update
-echo [11] Consenti aggiornamenti driver tramite Windows Update (Default)
+echo [11] Consenti aggiornamenti driver tramite Windows Update (default)
 echo [12] Verifica lo stato di attivazione e licenza di Windows
 echo [0]  Torna al menu principale
 echo ======================================================
