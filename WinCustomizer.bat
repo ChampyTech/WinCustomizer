@@ -2,6 +2,23 @@
 
 @echo off
 
+net session >nul 2>&1
+if %errorLevel% neq 0 (
+    cls
+    echo ======================================================
+    echo                ERRORE: ACCESSO NEGATO
+    echo ======================================================
+    echo Questo script richiede privilegi di amministratore per
+    echo poter modificare il registro di sistema e i servizi.
+    echo.
+    echo 1. Fai click con il tasto destro sul file .bat
+    echo 2. Seleziona "Esegui come amministratore"
+    echo ======================================================
+    echo.
+    pause
+    exit
+)
+
 :menu
 cls
 echo ======================================================
@@ -15,13 +32,13 @@ echo [5] GESTIONE APP (Rimuovi bloatware, installa essentials)
 echo [6] SICUREZZA (Windows Defender, aggiornamenti)
 echo [0] ESCI
 echo ======================================================
-set /p choice=Scegli un'opzione (0-6):
+set /p choice=Scegli un'opzione (0-6): 
 
 if "%choice%"=="1" goto manutenzione
 if "%choice%"=="2" goto privacy
 if "%choice%"=="3" goto ui_custom
 if "%choice%"=="4" goto performance
-if "%choice%"=="5" goto app_manager
+if "%choice%"=="5" goto app
 if "%choice%"=="6" goto sicurezza
 if "%choice%"=="0" exit
 echo Opzione non valida, riprova. & pause & goto menu
@@ -78,7 +95,6 @@ if "%subchoice%"=="20" reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\E
 if "%subchoice%"=="0"  goto menu
 
 echo Scelta non valida.
-timeout /t 2 >nul
 goto manutenzione
 
 :privacy
@@ -125,13 +141,12 @@ if "%privchoice%"=="16" reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\
 if "%privchoice%"=="0"  goto menu
 
 echo Scelta non valida.
-timeout /t 2 >nul
 goto privacy
 
 :ui_custom
 cls
 echo ======================================================
-echo          Personalizzazione UI - WinCustomizer
+echo           Personalizzazione UI - WinCustomizer
 echo ======================================================
 echo [1]  Ripristina menu contestuale classico (Win10 style)
 echo [2]  Ripristina menu contestuale moderno (Win11 default)
@@ -161,44 +176,43 @@ echo [25] Abilita il "God Mode" sul desktop
 echo [26] Rimuovi filigrana "Requisiti di sistema non soddisfatti"
 echo [27] Cambia tema in Dark Mode (Sistema e App)
 echo [28] Cambia tema in Light Mode (Sistema e App)
-echo [29] Riavvia il processo Explorer (Per applicare modifiche)
+echo [29] Riavvia manualmente il processo Explorer
 echo [0]  Torna al menu principale
 echo ======================================================
 set /p uichoice=Seleziona un'operazione (0-29): 
 
-if "%uichoice%"=="1"  reg add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /f /ve & goto ui_custom
-if "%uichoice%"=="2"  reg delete "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}" /f & goto ui_custom
-if "%uichoice%"=="3"  reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v TaskbarAl /t REG_DWORD /d 0 /f & goto ui_custom
-if "%uichoice%"=="4"  reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v TaskbarAl /t REG_DWORD /d 1 /f & goto ui_custom
-if "%uichoice%"=="5"  reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v TaskbarDa /t REG_DWORD /d 0 /f & goto ui_custom
-if "%uichoice%"=="6"  reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v TaskbarDa /t REG_DWORD /d 1 /f & goto ui_custom
-if "%uichoice%"=="7"  reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Search" /v SearchboxTaskbarMode /t REG_DWORD /d 0 /f & goto ui_custom
-if "%uichoice%"=="8"  reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Search" /v SearchboxTaskbarMode /t REG_DWORD /d 1 /f & goto ui_custom
-if "%uichoice%"=="9"  reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v TaskbarMn /t REG_DWORD /d 0 /f & goto ui_custom
-if "%uichoice%"=="10" reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel" /v "{20D04FE0-3AEA-1069-A2D8-08002B30309D}" /t REG_DWORD /d 1 /f & goto ui_custom
-if "%uichoice%"=="11" reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel" /v "{20D04FE0-3AEA-1069-A2D8-08002B30309D}" /t REG_DWORD /d 0 /f & goto ui_custom
-if "%uichoice%"=="12" reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v EnableTransparency /t REG_DWORD /d 0 /f & goto ui_custom
-if "%uichoice%"=="13" reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v EnableTransparency /t REG_DWORD /d 1 /f & goto ui_custom
-if "%uichoice%"=="14" reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v TaskbarSi /t REG_DWORD /d 0 /f & goto ui_custom
-if "%uichoice%"=="15" reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v TaskbarSi /t REG_DWORD /d 1 /f & goto ui_custom
-if "%uichoice%"=="16" reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v Start_IrisRecommendations /t REG_DWORD /d 0 /f & goto ui_custom
-if "%uichoice%"=="17" reg add "HKCU\Control Panel\Desktop" /v UserPreferencesMask /t REG_BINARY /d 9012028010000000 /f & goto ui_custom
-if "%uichoice%"=="18" reg add "HKCU\Control Panel\Desktop" /v UserPreferencesMask /t REG_BINARY /d 9e3e078012000000 /f & goto ui_custom
-if "%uichoice%"=="19" reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer" /v link /t REG_BINARY /d 00000000 /f & goto ui_custom
-if "%uichoice%"=="20" reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v HideFileExt /t REG_DWORD /d 0 /f & goto ui_custom
-if "%uichoice%"=="21" reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v Hidden /t REG_DWORD /d 1 /f & goto ui_custom
-if "%uichoice%"=="22" reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v LaunchTo /t REG_DWORD /d 1 /f & goto ui_custom
-if "%uichoice%"=="23" reg add "HKCU\AppEvents\Schemes" /ve /t REG_SZ /d ".None" /f & goto ui_custom
-if "%uichoice%"=="24" reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Personalization" /v NoLockScreen /t REG_DWORD /d 1 /f & goto ui_custom
+if "%uichoice%"=="1"  reg add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /f /ve & taskkill /f /im explorer.exe & start explorer.exe & goto ui_custom
+if "%uichoice%"=="2"  reg delete "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}" /f & taskkill /f /im explorer.exe & start explorer.exe & goto ui_custom
+if "%uichoice%"=="3"  reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v TaskbarAl /t REG_DWORD /d 0 /f & taskkill /f /im explorer.exe & start explorer.exe & goto ui_custom
+if "%uichoice%"=="4"  reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v TaskbarAl /t REG_DWORD /d 1 /f & taskkill /f /im explorer.exe & start explorer.exe & goto ui_custom
+if "%uichoice%"=="5"  reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v TaskbarDa /t REG_DWORD /d 0 /f & taskkill /f /im explorer.exe & start explorer.exe & goto ui_custom
+if "%uichoice%"=="6"  reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v TaskbarDa /t REG_DWORD /d 1 /f & taskkill /f /im explorer.exe & start explorer.exe & goto ui_custom
+if "%uichoice%"=="7"  reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Search" /v SearchboxTaskbarMode /t REG_DWORD /d 0 /f & taskkill /f /im explorer.exe & start explorer.exe & goto ui_custom
+if "%uichoice%"=="8"  reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Search" /v SearchboxTaskbarMode /t REG_DWORD /d 1 /f & taskkill /f /im explorer.exe & start explorer.exe & goto ui_custom
+if "%uichoice%"=="9"  reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v TaskbarMn /t REG_DWORD /d 0 /f & taskkill /f /im explorer.exe & start explorer.exe & goto ui_custom
+if "%uichoice%"=="10" reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel" /v "{20D04FE0-3AEA-1069-A2D8-08002B30309D}" /t REG_DWORD /d 1 /f & taskkill /f /im explorer.exe & start explorer.exe & goto ui_custom
+if "%uichoice%"=="11" reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel" /v "{20D04FE0-3AEA-1069-A2D8-08002B30309D}" /t REG_DWORD /d 0 /f & taskkill /f /im explorer.exe & start explorer.exe & goto ui_custom
+if "%uichoice%"=="12" reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v EnableTransparency /t REG_DWORD /d 0 /f & taskkill /f /im explorer.exe & start explorer.exe & goto ui_custom
+if "%uichoice%"=="13" reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v EnableTransparency /t REG_DWORD /d 1 /f & taskkill /f /im explorer.exe & start explorer.exe & goto ui_custom
+if "%uichoice%"=="14" reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v TaskbarSi /t REG_DWORD /d 0 /f & taskkill /f /im explorer.exe & start explorer.exe & goto ui_custom
+if "%uichoice%"=="15" reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v TaskbarSi /t REG_DWORD /d 1 /f & taskkill /f /im explorer.exe & start explorer.exe & goto ui_custom
+if "%uichoice%"=="16" reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v Start_IrisRecommendations /t REG_DWORD /d 0 /f & taskkill /f /im explorer.exe & start explorer.exe & goto ui_custom
+if "%uichoice%"=="17" reg add "HKCU\Control Panel\Desktop" /v UserPreferencesMask /t REG_BINARY /d 9012028010000000 /f & taskkill /f /im explorer.exe & start explorer.exe & goto ui_custom
+if "%uichoice%"=="18" reg add "HKCU\Control Panel\Desktop" /v UserPreferencesMask /t REG_BINARY /d 9e3e078012000000 /f & taskkill /f /im explorer.exe & start explorer.exe & goto ui_custom
+if "%uichoice%"=="19" reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer" /v link /t REG_BINARY /d 00000000 /f & taskkill /f /im explorer.exe & start explorer.exe & goto ui_custom
+if "%uichoice%"=="20" reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v HideFileExt /t REG_DWORD /d 0 /f & taskkill /f /im explorer.exe & start explorer.exe & goto ui_custom
+if "%uichoice%"=="21" reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v Hidden /t REG_DWORD /d 1 /f & taskkill /f /im explorer.exe & start explorer.exe & goto ui_custom
+if "%uichoice%"=="22" reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v LaunchTo /t REG_DWORD /d 1 /f & taskkill /f /im explorer.exe & start explorer.exe & goto ui_custom
+if "%uichoice%"=="23" reg add "HKCU\AppEvents\Schemes" /ve /t REG_SZ /d ".None" /f & taskkill /f /im explorer.exe & start explorer.exe & goto ui_custom
+if "%uichoice%"=="24" reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Personalization" /v NoLockScreen /t REG_DWORD /d 1 /f & taskkill /f /im explorer.exe & start explorer.exe & goto ui_custom
 if "%uichoice%"=="25" mkdir "%userprofile%\Desktop\GodMode.{ED7BA470-8E54-465E-825C-99712043E01C}" & goto ui_custom
-if "%uichoice%"=="26" reg add "HKCU\Control Panel\UnsupportedHardwareNotificationCache" /v SV2 /t REG_DWORD /d 0 /f & goto ui_custom
-if "%uichoice%"=="27" powershell -Command "Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name SystemUsesLightTheme -Value 0; Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name AppsUseLightTheme -Value 0" & goto ui_custom
-if "%uichoice%"=="28" powershell -Command "Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name SystemUsesLightTheme -Value 1; Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name AppsUseLightTheme -Value 1" & goto ui_custom
+if "%uichoice%"=="26" reg add "HKCU\Control Panel\UnsupportedHardwareNotificationCache" /v SV2 /t REG_DWORD /d 0 /f & taskkill /f /im explorer.exe & start explorer.exe & goto ui_custom
+if "%uichoice%"=="27" powershell -Command "Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name SystemUsesLightTheme -Value 0; Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name AppsUseLightTheme -Value 0" & taskkill /f /im explorer.exe & start explorer.exe & goto ui_custom
+if "%uichoice%"=="28" powershell -Command "Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name SystemUsesLightTheme -Value 1; Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize' -Name AppsUseLightTheme -Value 1" & taskkill /f /im explorer.exe & start explorer.exe & goto ui_custom
 if "%uichoice%"=="29" taskkill /f /im explorer.exe & start explorer.exe & goto ui_custom
 if "%uichoice%"=="0"  goto menu
 
 echo Scelta non valida.
-timeout /t 2 >nul
 goto ui_custom
 
 :performance
@@ -255,7 +269,6 @@ if "%perfchoice%"=="21" reg add "HKLM\SYSTEM\CurrentControlSet\Control\GraphicsD
 if "%perfchoice%"=="0"  goto menu
 
 echo Scelta non valida.
-timeout /t 2 >nul
 goto performance
 
 :app
@@ -335,3 +348,41 @@ if "%appchoice%"=="32" powershell -Command "Get-ChildItem 'C:\Windows\Installer'
 if "%appchoice%"=="33" powershell -Command "Get-AppxPackage -allusers Microsoft.WindowsStore | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register \"$($_.InstallLocation)\AppXManifest.xml\"}" & pause & goto app
 if "%appchoice%"=="0"  goto menu
 goto app
+
+:sicurezza
+cls
+echo ======================================================
+echo                Sicurezza - WinCustomizer
+echo ======================================================
+echo [1]  Aggiorna firme di Windows Defender
+echo [2]  Esegui scansione rapida con Windows Defender
+echo [3]  Abilita protezione dai Ransomware (Controlled folder access)
+echo [4]  Disabilita protezione dai Ransomware
+echo [5]  Abilita isolamento del core (Memory integrity)
+echo [6]  Attiva protezione PUP/PUA (Applicazioni potenzialmente indesiderate)
+echo [7]  Disabilita Windows Script Host (Blocca script maligni VBS/JS)
+echo [8]  Abilita Windows Script Host (Default)
+echo [9]  Disabilita esecuzione automatica driver vulnerabili (Blocklist)
+echo [10] Blocca aggiornamenti driver tramite Windows Update
+echo [11] Consenti aggiornamenti driver tramite Windows Update (Default)
+echo [12] Verifica lo stato di attivazione e licenza di Windows
+echo [0]  Torna al menu principale
+echo ======================================================
+set /p sechoice=Seleziona un'operazione (0-12): 
+
+if "%sechoice%"=="1"  powershell -Command "Update-MpSignature" & pause & goto sicurezza
+if "%sechoice%"=="2"  powershell -Command "Start-MpScan -ScanType QuickScan" & pause & goto sicurezza
+if "%sechoice%"=="3"  powershell -Command "Set-MpPreference -EnableControlledFolderAccess Enabled" & pause & goto sicurezza
+if "%sechoice%"=="4"  powershell -Command "Set-MpPreference -EnableControlledFolderAccess Disabled" & pause & goto sicurezza
+if "%sechoice%"=="5"  reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity" /v "Enabled" /t REG_DWORD /d 1 /f & pause & goto sicurezza
+if "%sechoice%"=="6"  powershell -Command "Set-MpPreference -PUAProtection Enabled" & pause & goto sicurezza
+if "%sechoice%"=="7"  reg add "HKLM\SOFTWARE\Microsoft\Windows Script Host\Settings" /v "Enabled" /t REG_DWORD /d 0 /f & pause & goto sicurezza
+if "%sechoice%"=="8"  reg delete "HKLM\SOFTWARE\Microsoft\Windows Script Host\Settings" /v "Enabled" /f & pause & goto sicurezza
+if "%sechoice%"=="9"  reg add "HKLM\SYSTEM\CurrentControlSet\Control\CI\Config" /v "VulnerableDriverBlockListEnable" /t REG_DWORD /d 1 /f & pause & goto sicurezza
+if "%sechoice%"=="10" reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "ExcludeWUDriversInQualityUpdate" /t REG_DWORD /d 1 /f & pause & goto sicurezza
+if "%sechoice%"=="11" reg delete "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate" /v "ExcludeWUDriversInQualityUpdate" /f & pause & goto sicurezza
+if "%sechoice%"=="12" cscript //nologo %systemroot%\system32\slmgr.vbs /dli & pause & goto sicurezza
+if "%sechoice%"=="0"  goto menu
+
+echo Scelta non valida.
+goto sicurezza
